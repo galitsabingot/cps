@@ -1,0 +1,7 @@
+.group:hover .transition-opacity {
+  opacity: 1;
+}
+
+.group:hover .transition-transform {
+  transform: scale(1.05);
+}
