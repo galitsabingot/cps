@@ -7,11 +7,13 @@ import Navbar from '../components/Navbar';
 const SignUp = () => {
   const [formData, setFormData] = useState({
     firstName: '',
+    middleName: '',
     lastName: '',
+    suffix: '',
     email: '',
     password: '',
     confirmPassword: '',
-    phoneNumber: '', // Add phoneNumber state
+    phoneNumber: '',
   });
   const [showModal, setShowModal] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -70,9 +72,11 @@ const SignUp = () => {
 
       await setDoc(doc(db, 'users', user.uid), {
         firstName: formData.firstName,
+        middleName: formData.middleName,
         lastName: formData.lastName,
+        suffix: formData.suffix,
         email: formData.email,
-        phoneNumber: `+63${formData.phoneNumber}`, // Add the phone number
+        phoneNumber: `+63${formData.phoneNumber}`,
         role: 'user',
       });
 
@@ -90,11 +94,13 @@ const SignUp = () => {
 
     setFormData({
       firstName: '',
+      middleName: '',
       lastName: '',
+      suffix: '',
       email: '',
       password: '',
       confirmPassword: '',
-      phoneNumber: '', // Reset phone number
+      phoneNumber: '',
     });
     setFile(null);
   };
@@ -111,31 +117,51 @@ const SignUp = () => {
             <h2 className="text-3xl font-bold ml-6 mb-4">REGISTER</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label className="block mb-2">First name:</label>
-                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+                <label className="block mb-2">
+                  <span className="text-red-500 text-lg mr-1">*</span> First name:
+                </label>
+                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
               </div>
               <div className="mb-4">
-                <label className="block mb-2">Last name:</label>
-                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="text" name="lastName" value={formData.lastName} onChange={handleChange} />
+                <label className="block mb-2">Middle name:</label>
+                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="text" name="middleName" value={formData.middleName} onChange={handleChange} />
               </div>
               <div className="mb-4">
-                <label className="block mb-2">Email Address:</label>
-                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="email" name="email" value={formData.email} onChange={handleChange} />
+                <label className="block mb-2">
+                  <span className="text-red-500 text-lg mr-1">*</span> Last name:
+                </label>
+                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
               </div>
               <div className="mb-4">
-                <label className="block mb-2">Password:</label>
-                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="password" name="password" value={formData.password} onChange={handleChange} />
+                <label className="block mb-2">Suffix:</label>
+                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="text" name="suffix" value={formData.suffix} onChange={handleChange} />
               </div>
               <div className="mb-4">
-                <label className="block mb-2">Confirm Password:</label>
-                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+                <label className="block mb-2">
+                  <span className="text-red-500 text-lg mr-1">*</span> Email Address:
+                </label>
+                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="email" name="email" value={formData.email} onChange={handleChange} required />
               </div>
               <div className="mb-4">
-                <label className="block mb-2">Phone Number:</label>
+                <label className="block mb-2">
+                  <span className="text-red-500 text-lg mr-1">*</span> Phone Number:
+                </label>
                 <div className="flex">
                   <span className="p-3 bg-gray-300 rounded-l border border-gray-300">+63</span>
-                  <input className="w-full p-3 rounded-r border border-gray-300 bg-white" type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                  <input className="w-full p-3 rounded-r border border-gray-300 bg-white" type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
                 </div>
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">
+                  <span className="text-red-500 text-lg mr-1">*</span> Password:
+                </label>
+                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="password" name="password" value={formData.password} onChange={handleChange} required />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">
+                  <span className="text-red-500 text-lg mr-1">*</span> Confirm Password:
+                </label>
+                <input className="w-full p-3 rounded border border-gray-300 bg-white" type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
               </div>
               <button type="submit" className="w-full p-3 bg-[#ffd000] rounded mb-4">SIGN UP</button>
             </form>
