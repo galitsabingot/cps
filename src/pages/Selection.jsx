@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { auth, db } from './firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const Selection = () => {
   const [email, setEmail] = useState('');
@@ -60,6 +62,32 @@ const Selection = () => {
     }
   };
 
+  const handleGoogleSignUp = async () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (!userDoc.exists()) {
+        await setDoc(doc(db, 'users', user.uid), {
+          role: 'user', // Default role, can be adjusted as needed
+          email: user.email,
+          displayName: user.displayName,
+        });
+      }
+      window.location.href = '/user-dashboard';
+    } catch (error) {
+      setError('Failed to sign up with Google. Please try again.');
+      console.error('Error signing up with Google:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <div className='absolute mix-blend-multiply filter blur-xl opacity-95 animate-blob animation-delay-2000 top-28 left-44 w-96 h-96 bg-purple-400 rounded-full z-10 pointer-events-none'></div>
@@ -103,6 +131,18 @@ const Selection = () => {
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Staff/Admin Login
+          </button>
+        </div>
+        <div className="flex items-center justify-center mt-4">
+          <button
+            type="button"
+            onClick={handleGoogleSignUp}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center"
+          >
+            <span className="bg-white rounded-full p-1">
+              <FontAwesomeIcon icon={faGoogle} className="text-blue-500" />
+            </span>
+            <span className="ml-2">Sign Up with Google</span>
           </button>
         </div>
         {loading && <p className="mt-4 text-gray-700">Loading...</p>}
