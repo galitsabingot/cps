@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
 import Logo from '../assets/logo.png';
+import Carousel from './Carousel'; // Import the Carousel component
 
 const UserDashboard = () => {
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
@@ -23,7 +24,7 @@ const UserDashboard = () => {
       {/* Top Section */}
       <div className="bg-yellow-400 p-4 flex justify-between items-center">
         <div className="flex items-center ml-10">
-          <img src={Logo} alt="Logo image" style={{ width: '60px' }} />
+          <img src={Logo} alt="Logo " style={{ width: '60px' }} />
           <h1 className="text-sm font-bold uppercase ml-5 tracking-widest">Amarabelliana's Gowns and Events Stylist</h1>
         </div>
         <div className="flex space-x-6 mr-10">
@@ -50,9 +51,9 @@ const UserDashboard = () => {
         <Link to="/ai-generator" className="bg-white text-black px-4 py-2 rounded-t-lg hover:bg-[#ffd000] transition">AI GENERATOR</Link>
       </div>
 
-      {/* Main Dashboard Content */}
-      <div className="pt-16 px-8">
-        <h1 className="text-3xl font-bold mb-4">User Dashboard</h1>
+      {/* Carousel */}
+      <div className="pt-8 px-8">
+        <Carousel />
       </div>
 
       {/* Logout Confirmation Popup */}

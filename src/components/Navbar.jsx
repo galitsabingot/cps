@@ -46,7 +46,7 @@ const Navbar = () => {
         </li>
         <li className='hover:text-[#ffd000]'>
           {isHomePage ? (
-            <ScrollLink to="faqs" smooth={true} duration={500}><Link to="/">Faqs</Link></ScrollLink>
+            <ScrollLink to="faqs" smooth={true} duration={500}><Link to="/">FAQs</Link></ScrollLink>
           ) : (
             <Link to="/?scrollTo=faqs">Faqs</Link>
           )}

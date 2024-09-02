@@ -11,6 +11,7 @@ const SignUp = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    phoneNumber: '', // Add phoneNumber state
   });
   const [showModal, setShowModal] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -71,6 +72,7 @@ const SignUp = () => {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
+        phoneNumber: `+63${formData.phoneNumber}`, // Add the phone number
         role: 'user',
       });
 
@@ -92,6 +94,7 @@ const SignUp = () => {
       email: '',
       password: '',
       confirmPassword: '',
+      phoneNumber: '', // Reset phone number
     });
     setFile(null);
   };
@@ -126,6 +129,13 @@ const SignUp = () => {
               <div className="mb-4">
                 <label className="block mb-2">Confirm Password:</label>
                 <input className="w-full p-3 rounded border border-gray-300 bg-white" type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">Phone Number:</label>
+                <div className="flex">
+                  <span className="p-3 bg-gray-300 rounded-l border border-gray-300">+63</span>
+                  <input className="w-full p-3 rounded-r border border-gray-300 bg-white" type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                </div>
               </div>
               <button type="submit" className="w-full p-3 bg-[#ffd000] rounded mb-4">SIGN UP</button>
             </form>
