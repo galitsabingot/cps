@@ -42,7 +42,7 @@ const Home = () => {
           YOUR ONE-STOP SHOP FOR ALL YOUR RENTAL NEEDS
         </h2>
         <h1
-          className="text-4xl sm:text-7xl font-bold text-[#F2CA46] py-5 text-center mb-10"
+          className="text-4xl sm:text-7xl font-bold text-[#ffd000] py-5 text-center mb-10"
           style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}
         >
           Tailored Rentals & Custom Creations: Your Perfect Fit Awaits
